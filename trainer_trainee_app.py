@@ -11,12 +11,13 @@ Identifying the classes:
 Identifying the relationships:
 Only Has-A relationships
         Relationship                     Cardinality
-1. Trainer -> Course, association       (1-1..*)
-2. Trainer -> Trainee, association      (1-1..*)
-3. Course -> Technology, aggregation    (1-1..*)
-4. Course -> Module , composition  (1-1..*)
-5. Module -> Unit, composition     (1-1..*)
-6. Unit -> Topic,composition      (1-1..*)
+1. Trainer -> Course, association       (1-0..*)
+2. Trainer -> Trainee, association      (1-0..*)
+3. Technology-> Course, association    (1-0..*) [on a given technology in this course] 
+[technology is never owned by a course but can be used by 0 or more courses]
+4. Course -> Module , composition  (1-1..*) [the course contains many modules so implies at least 1]
+5. Module -> Unit, composition     (1-1..*) [each module comprised of diff units]
+6. Unit -> Topic,composition      (1-1..*) [each unit has many topics]
 
 """
 
