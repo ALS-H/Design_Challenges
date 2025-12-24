@@ -1,0 +1,55 @@
+Overall Design Summary
+There are two Account Manager classes.
+A single Account object is created and passed one by one to both managers.
+Each manager:
+    Fills account details
+    Displays account details
+This setup is used to compare weak vs strong encapsulation.
+
+------------------------------------------------------------------------------
+
+AccountManager1 (Weak Encapsulation)
+1._var indicates protected attributes (by convention), meant to be accessed only within the class or related classes.
+
+2.fill_account_data(acc) directly sets protected variables inside the Account object.
+
+3.display_account_data(acc) directly reads protected variables from the Account object.
+
+4.The design follows separation of responsibility:
+    Account → holds data
+    AccountManager1 → performs operations on the account
+
+5.AccountManager1 directly accesses protected variables, bypassing getters/setters.
+6.This results in weak encapsulation, as data hiding is violated.
+
+------------------------------------------------------------------------------------
+
+AccountManager2 (Strong Encapsulation)
+8.AccountManager2 does not access protected variables (_var) at all.
+9.It interacts only with public properties (acc_no, name, balance).
+10. var → public
+    _var → protected
+    __var → private (name-mangled)
+11. AccountManager2 accesses data indirectly through properties, ensuring rules are applied.
+12.This demonstrates proper use of encapsulation.
+
+------------------------------------------------------------------------------------
+
+Account Class (True Encapsulation)
+
+14.Uses protected variables (_acc_no, _name, _balance) for internal data storage → Data Hiding.
+15.Uses @property methods to provide controlled access to internal data.
+16.@setter methods enforce validation and business rules (e.g., bank code prefix).
+17. balance property returns computed value, not raw balance.
+18. Interest calculation is hidden from the caller → Data Abstraction + Encapsulation.
+19. compute_interest() represents hidden/internal behavior.
+    External code does not depend on how interest is calculated.
+    Logic can change without affecting managers.
+20.Account class exposes what to access, not how it is implemented.
+
+
+Final Conclusion:
+
+The Account class achieves true encapsulation by storing data in protected variables and exposing it through public properties with validation and business logic.
+AccountManager1 violates encapsulation by directly accessing protected members, resulting in weak data protection.
+AccountManager2 respects encapsulation by interacting only through public interfaces, ensuring controlled access, data hiding, and abstraction.
