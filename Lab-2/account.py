@@ -32,6 +32,8 @@ class Account:
 
     @balance.setter
     def balance(self, value):
+        if value<0:
+            raise ValueError("Invalid Balance")
         self._balance = value
 
     """
